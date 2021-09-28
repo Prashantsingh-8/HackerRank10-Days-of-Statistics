@@ -1,0 +1,38 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int median(vector<int>::iterator a, vector<int>::iterator b){
+    int size = b - a;
+    if(size % 2 == 0){
+        return (*(a + size / 2 - 1) + *(a + size / 2)) / 2;
+    }
+    else{
+        return *(a + size / 2);
+    }
+}
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int n; cin >> n;
+    vector<int> X(n);
+    for(int i = 0; i < n; i++){
+        cin >> X[i];
+    }
+    sort(X.begin(), X.end());
+    
+    int q2 = median(X.begin(), X.end());
+    vector<int>::iterator bl = lower_bound(X.begin(), X.end(), q2);
+    int q1 = median(X.begin(), bl);
+    vector<int>::iterator bu = upper_bound(X.begin(), X.end(), q2);
+    int q3 = median(bu, X.end());
+    
+    cout << q1 << endl;
+    cout << q2 << endl;
+    cout << q3 << endl;
+    return 0;
+}
