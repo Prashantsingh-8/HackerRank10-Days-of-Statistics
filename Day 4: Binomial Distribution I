@@ -1,0 +1,45 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+using namespace std;
+
+long factorials [100];
+
+long factorial(int n) {
+    if (factorials[n] != 0) return factorials[n];
+    else factorials[n] = (n == 1 || n == 0) ? 1 : factorial(n - 1) * n;
+    return factorials[n];
+}
+
+double binomialDistribution(int x, int n, double p) {
+    int binomialCoefficient;
+    binomialCoefficient = factorial(n) / (factorial(x) * factorial(n - x));
+    
+    return binomialCoefficient * pow(p, x) * pow(1 - p, n - x);
+}
+
+double russianFamily(double boys, double girls, int numChildren, int minBoys) {
+    double p = boys / (boys + girls);
+    
+    double cumulativeProbability = 0;
+    
+    for (int x = minBoys; x <= numChildren; x++) {
+        cumulativeProbability += binomialDistribution(x, numChildren, p);
+    }
+    
+    return cumulativeProbability;
+}
+
+int main() {
+    /*double boys;
+    double girls;
+    cin >> boys >> girls;*/
+   
+    double proportion = russianFamily(1.09, 1, 6, 3);
+    cout << fixed << setprecision(3) << proportion;
+    
+    return 0;
+}
