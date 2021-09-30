@@ -1,0 +1,38 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    vector<int> mathGrades={95,85,80,70,60};
+    vector<int> statGrades={85,95,70,65,70};
+    
+    int N=mathGrades.size();
+    float mathMean=0;
+    float statMean=0;
+    float xy=0;
+    float x2=0;
+    float sumX=0;
+    float sumY=0;
+    for(int i=0;i<N;++i)
+    {
+        xy+=mathGrades[i]*statGrades[i];
+        x2+=mathGrades[i]*mathGrades[i];
+        sumX+=mathGrades[i];
+        sumY+=statGrades[i];
+    }
+    mathMean=sumX/N;
+    statMean=sumY/N;
+    
+    float b=(N*xy-sumX*sumY)/(N*x2-sumX*sumX);
+    float a=statMean-b*mathMean;
+    
+    cout<<setprecision(3)<<fixed<<a+b*80<<endl;
+    
+    return 0;
+}
